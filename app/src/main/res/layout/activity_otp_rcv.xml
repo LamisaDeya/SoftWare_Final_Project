@@ -162,7 +162,7 @@
             android:background="@drawable/back"
             android:layout_marginTop="20dp"
             android:backgroundTint="#4BCDED"
-            android:text="SEND"
+            android:text="VERIFY"
             android:textSize="20dp"
             />
         <ProgressBar
