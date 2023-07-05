@@ -22,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+
 public class add extends AppCompatActivity {
 
 
@@ -41,6 +42,14 @@ public class add extends AppCompatActivity {
         dis=findViewById(R.id.dis);
         btn=findViewById(R.id.up);
         textView=findViewById(R.id.tm);
+
+        if(getIntent().getStringExtra("SYS")!=null)
+        {
+            bp.setText(getIntent().getStringExtra("BP"));
+            sys.setText(getIntent().getStringExtra("SYS"));
+            dis.setText(getIntent().getStringExtra("DIS"));
+            //text.setText(getIntent().getStringExtra("DIS"));
+        }
 
         Intent intent1=getIntent();
         String email=intent1.getStringExtra("email");
@@ -76,6 +85,7 @@ public class add extends AppCompatActivity {
                 h.setDate(dat);
 
                 String ss=dat.replace("/","");
+
 
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override

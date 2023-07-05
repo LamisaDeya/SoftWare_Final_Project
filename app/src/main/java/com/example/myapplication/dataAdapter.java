@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,24 @@ public class dataAdapter extends RecyclerView.Adapter<dataAdapter.MyViewHolder> 
             holder.bp.setText(adapter.getBp());
             holder.date.setText(adapter.getDate());
             holder.time.setText(adapter.getTime());
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos= holder.getAdapterPosition();
+                    health h = list.get(pos);
+                    String DATE= h.getDate();
+
+                    Intent intent = new Intent(context,DetailsActivity.class);
+                    intent.putExtra("BP",h.bp);
+                    intent.putExtra("SYS",h.sys);
+                    intent.putExtra("DIAS",h.dis);
+                    intent.putExtra("DATE_",h.date);
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+            });
     }
 
     @Override
