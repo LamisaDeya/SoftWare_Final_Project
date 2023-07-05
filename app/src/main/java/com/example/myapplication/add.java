@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -16,12 +17,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class add extends AppCompatActivity {
 
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     EditText bp,sys,dis;
+    TextView textView;
+    String tm;
     Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,7 @@ public class add extends AppCompatActivity {
         sys=findViewById(R.id.sys);
         dis=findViewById(R.id.dis);
         btn=findViewById(R.id.up);
+        textView=findViewById(R.id.tm);
 
         Intent intent1=getIntent();
         String email=intent1.getStringExtra("email");
@@ -39,9 +48,22 @@ public class add extends AppCompatActivity {
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference(email);
 
+
+        Date date= Calendar.getInstance().getTime();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat simpleTimeFormat=new SimpleDateFormat("hh:mm:ss", Locale.getDefault());
+
+        String dat=simpleDateFormat.format(date);
+        String tim=simpleTimeFormat.format(date);
+
+        tm=tim+" "+dat;
+
+        textView.setText(tm);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String bps=bp.getText().toString().trim();
                 String syss=sys.getText().toString().trim();
                 String di=dis.getText().toString().trim();
@@ -50,17 +72,19 @@ public class add extends AppCompatActivity {
                 h.setBp(bps);
                 h.setDis(di);
                 h.setSys(syss);
+                h.setTime(tim);
+                h.setDate(dat);
+
+                String ss=dat.replace("/","");
 
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        databaseReference.setValue(h);
+                        databaseReference.child(ss).setValue(h);
                         Toast.makeText(add.this, "Data Uploaded", Toast.LENGTH_SHORT).show();
                         bp.setText("");
                         dis.setText("");
                         sys.setText("");
-                        Intent intent=new Intent(add.this,MainActivity.class);
-                        startActivity(intent);
                     }
 
                     @Override
@@ -68,6 +92,12 @@ public class add extends AppCompatActivity {
 
                     }
                 });
+
+
+
+               Intent intent=new Intent(add.this,MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

@@ -1,7 +1,23 @@
 package com.example.myapplication;
 
 public class health {
-    String sys,dis,bp;
+    String sys,dis,bp,time,date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getSys() {
         return sys;
