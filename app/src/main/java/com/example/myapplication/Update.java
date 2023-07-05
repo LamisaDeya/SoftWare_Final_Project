@@ -1,9 +1,8 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,37 +13,34 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
-
-public class add extends AppCompatActivity {
-
+public class Update extends AppCompatActivity {
 
     EditText bp,sys,dis;
     TextView textView;
     String tm,mail;
     Button btn;
-    long cnt=0;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_update2);
 
         bp=findViewById(R.id.bp);
         sys=findViewById(R.id.sys);
         dis=findViewById(R.id.dis);
         btn=findViewById(R.id.up);
         textView=findViewById(R.id.tm);
+
+        Intent intent=getIntent();
+        String date=intent.getStringExtra("date");
+        String time=intent.getStringExtra("time");
+        String sis1=intent.getStringExtra("sys");
+        String dis1=intent.getStringExtra("dis");
+        String bp1=intent.getStringExtra("bp");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -56,25 +52,18 @@ public class add extends AppCompatActivity {
 
         String email=mail.replace(".",",");
 
-        DatabaseReference reference=FirebaseDatabase.getInstance().getReference(email);
+        DatabaseReference reference= FirebaseDatabase.getInstance().getReference(email);
 
 
-
-        Date date= Calendar.getInstance().getTime();
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        SimpleDateFormat simpleTimeFormat=new SimpleDateFormat("hh:mm:ss", Locale.getDefault());
-
-        String dat=simpleDateFormat.format(date);
-        String tim=simpleTimeFormat.format(date);
-
-        tm=tim+" "+dat;
-
+        tm=date+" "+time;
         textView.setText(tm);
+        bp.setText(bp1);
+        dis.setText(dis1);
+        sys.setText(sis1);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String bps=bp.getText().toString().trim();
                 String syss=sys.getText().toString().trim();
                 String di=dis.getText().toString().trim();
@@ -83,19 +72,19 @@ public class add extends AppCompatActivity {
                 h.setBp(bps);
                 h.setDis(di);
                 h.setSys(syss);
-                h.setTime(tim);
-                h.setDate(dat);
+                h.setTime(time);
+                h.setDate(date);
 
-                String ss=dat.replace("/","");
-                String xx=tim.replace(":","");
+                String ss=date.replace("/","");
+                String xx=time.replace(":","");
 
 
 
                 reference.child(ss+xx).setValue(h);
-                Toast.makeText(add.this, "Data Uploaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Update.this, "Data Uploaded", Toast.LENGTH_SHORT).show();
 
-                Intent intent=new Intent(add.this,MainActivity.class);
-                intent.putExtra("ss",ss+xx);
+                Intent intent=new Intent(Update.this,stat.class);
+                //intent.putExtra("ss",ss+xx);
                 startActivity(intent);
                 finish();
             }
