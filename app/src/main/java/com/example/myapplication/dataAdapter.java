@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+
 public class dataAdapter extends RecyclerView.Adapter<dataAdapter.MyViewHolder> {
 
     String sys;
@@ -52,6 +53,25 @@ public class dataAdapter extends RecyclerView.Adapter<dataAdapter.MyViewHolder> 
             holder.date.setText(adapter.getDate());
             holder.time.setText(adapter.getTime());
 
+<<<<<<< HEAD
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos= holder.getAdapterPosition();
+                    health h = list.get(pos);
+                    String DATE= h.getDate();
+
+                    Intent intent = new Intent(context,DetailsActivity.class);
+                    intent.putExtra("BP",h.bp);
+                    intent.putExtra("SYS",h.sys);
+                    intent.putExtra("DIAS",h.dis);
+                    intent.putExtra("DATE_",h.date);
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+            });
+=======
             b=adapter.getBp();
             s=adapter.getSys();
             dd=adapter.getDis();
@@ -78,6 +98,7 @@ public class dataAdapter extends RecyclerView.Adapter<dataAdapter.MyViewHolder> 
             });
 
 
+>>>>>>> main
     }
 
     @Override
