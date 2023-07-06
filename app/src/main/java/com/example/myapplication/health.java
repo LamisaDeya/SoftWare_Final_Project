@@ -2,7 +2,9 @@ package com.example.myapplication;
 
 public class health {
     String sys,dis,bp,time,date;
-
+/**
+ * These methods are getters and setters to take and show data
+ */
     public String getDate() {
         return date;
     }

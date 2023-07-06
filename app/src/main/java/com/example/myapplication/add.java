@@ -30,74 +30,80 @@ import java.util.Locale;
 public class add extends AppCompatActivity {
 
 
-    EditText bp,sys,dis;
+    EditText bp, sys, dis;
     TextView textView;
-    String tm,mail;
+    String tm, mail;
     Button btn;
-    long cnt=0;
+    long cnt = 0;
+
+    /**
+     * This add data into firebase
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        bp=findViewById(R.id.bp);
-        sys=findViewById(R.id.sys);
-        dis=findViewById(R.id.dis);
-        btn=findViewById(R.id.up);
-        textView=findViewById(R.id.tm);
+        bp = findViewById(R.id.bp);
+        sys = findViewById(R.id.sys);
+        dis = findViewById(R.id.dis);
+        btn = findViewById(R.id.up);
+        textView = findViewById(R.id.tm);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             mail = user.getEmail();
-            // Use the email address as needed
+
+
+            String email = mail.replace(".", ",");
+
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference(email);
+
+
+            Date date = Calendar.getInstance().getTime();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("hh:mm:ss", Locale.getDefault());
+
+            String dat = simpleDateFormat.format(date);
+            String tim = simpleTimeFormat.format(date);
+
+            tm = tim + " " + dat;
+
+            textView.setText(tm);
+
+            /**
+             * This inserts data into firebase realtime database
+             */
+            btn.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    String bps = bp.getText().toString().trim();
+                    String syss = sys.getText().toString().trim();
+                    String di = dis.getText().toString().trim();
+
+                    health h = new health();
+                    h.setBp(bps);
+                    h.setDis(di);
+                    h.setSys(syss);
+                    h.setTime(tim);
+                    h.setDate(dat);
+
+                    String ss = dat.replace("/", "");
+                    String xx = tim.replace(":", "");
+
+
+                    reference.child(ss + xx).setValue(h);
+                    Toast.makeText(add.this, "Data Uploaded", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(add.this, MainActivity.class);
+                    intent.putExtra("ss", ss + xx);
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
-       /* Intent intent1=getIntent();
-        String mail=intent1.getStringExtra("email");*/
-
-        String email=mail.replace(".",",");
-
-        DatabaseReference reference=FirebaseDatabase.getInstance().getReference(email);
-
-
-
-        Date date= Calendar.getInstance().getTime();
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        SimpleDateFormat simpleTimeFormat=new SimpleDateFormat("hh:mm:ss", Locale.getDefault());
-
-        String dat=simpleDateFormat.format(date);
-        String tim=simpleTimeFormat.format(date);
-
-        tm=tim+" "+dat;
-
-        textView.setText(tm);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String bps=bp.getText().toString().trim();
-                String syss=sys.getText().toString().trim();
-                String di=dis.getText().toString().trim();
-
-                health h=new health();
-                h.setBp(bps);
-                h.setDis(di);
-                h.setSys(syss);
-                h.setTime(tim);
-                h.setDate(dat);
-
-                String ss=dat.replace("/","");
-                String xx=tim.replace(":","");
-
-
-                reference.child(ss+xx).setValue(h);
-                Toast.makeText(add.this, "Data Uploaded", Toast.LENGTH_SHORT).show();
-
-                Intent intent=new Intent(add.this,MainActivity.class);
-                intent.putExtra("ss",ss+xx);
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 }

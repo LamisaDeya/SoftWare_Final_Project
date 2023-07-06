@@ -66,7 +66,9 @@ public class otpRcv extends AppCompatActivity {
 
         setupOtpIn();
 
-
+/**
+ * This method verifies the user input verification code with the actual code
+ */
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,21 +102,6 @@ public class otpRcv extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()){
-                                                user User=new user();
-                                                User.setEmail(email);
-                                                User.setName(name);
-                                                String mail=email.replace('.',',');
-                                                databaseReference.addValueEventListener(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                            databaseReference.child(mail).setValue(User);
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                    }
-                                                });
                                                 Toast.makeText(otpRcv.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                                                 Intent newIntent=new Intent(otpRcv.this,login.class);
                                                 startActivity(newIntent);
@@ -134,6 +121,7 @@ public class otpRcv extends AppCompatActivity {
         });
 
     }
+
 
     private void setupOtpIn(){
         one.addTextChangedListener(new TextWatcher() {

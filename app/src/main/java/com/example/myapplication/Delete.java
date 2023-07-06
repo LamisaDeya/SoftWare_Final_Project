@@ -36,7 +36,9 @@ public class Delete extends AppCompatActivity {
         }
 
         String email = mail.replace(".", ",");
-
+/**
+ * Deletion is done
+ */
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference(email).child(ss);
         databaseReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {

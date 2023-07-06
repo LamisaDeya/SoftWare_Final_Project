@@ -47,6 +47,9 @@ public class login extends AppCompatActivity {
         else {*/
 
 
+        /**
+         * this function takes email and password and check the user and redirect to homepage
+         */
             log.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -71,7 +74,9 @@ public class login extends AppCompatActivity {
                 }
             });
 
-
+/**
+ * This is used to redirect user to register page if someone is not registered
+ */
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +84,9 @@ public class login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+/**
+ * this is for if someone forgets the password
+ */
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

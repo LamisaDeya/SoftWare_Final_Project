@@ -24,7 +24,9 @@ public class Registration extends AppCompatActivity {
         pass=findViewById(R.id.pass);
         conpass=findViewById(R.id.conpass);
         regi=findViewById(R.id.regi);
-
+/**
+ * This method Register User for this app
+ */
         regi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -48,6 +48,10 @@ public class stat extends AppCompatActivity {
         adapter=new dataAdapter(this,list,email);
         recyclerView.setAdapter(adapter);
         databaseReference.addValueEventListener(new ValueEventListener() {
+            /**
+             * This method is used to fetch data from database
+             * @param snapshot
+             */
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot dataSnapshot:snapshot.getChildren()){

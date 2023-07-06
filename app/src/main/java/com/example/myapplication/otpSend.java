@@ -41,7 +41,9 @@ public class otpSend extends AppCompatActivity {
         String name=intent1.getStringExtra("name").toString().trim();
         String email=intent1.getStringExtra("email").toString().trim();
         String pass=intent1.getStringExtra("pass").toString().trim();
-
+/**
+ * Takes phone number from user and send verification code
+ */
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

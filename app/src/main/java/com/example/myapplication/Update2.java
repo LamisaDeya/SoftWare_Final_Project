@@ -60,6 +60,10 @@ public class Update2 extends AppCompatActivity {
         dis.setText(dis1);
         sys.setText(sis1);
 
+        /**
+         * This method is used to update user data in database
+         */
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

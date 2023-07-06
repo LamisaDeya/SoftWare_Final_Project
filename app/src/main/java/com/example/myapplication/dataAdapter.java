@@ -43,6 +43,13 @@ public class dataAdapter extends RecyclerView.Adapter<dataAdapter.MyViewHolder> 
         return new MyViewHolder(view);
     }
 
+    /**
+     * This method is a RecyclerView.Adapter class and is used in conjunction with the
+     * RecyclerView to bind data to individual items in the list.
+     * @param holder
+     * @param position
+     */
+
     @Override
     public void onBindViewHolder(@NonNull dataAdapter.MyViewHolder holder, int position) {
             health adapter=list.get(position);
@@ -62,7 +69,11 @@ public class dataAdapter extends RecyclerView.Adapter<dataAdapter.MyViewHolder> 
             String dats=adapter.getDate().replace("/","");
             String tim=adapter.getTime().replace(":","");
 
-            holder.delete.setOnClickListener(new View.OnClickListener() {
+        /**
+         * THis method deletes data from database
+         */
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference(email);
@@ -80,10 +91,18 @@ public class dataAdapter extends RecyclerView.Adapter<dataAdapter.MyViewHolder> 
 
     }
 
+    /**
+     * this method returns the size of list
+     * @return
+     */
     @Override
     public int getItemCount() {
         return list.size();
     }
+
+    /**
+     * This takes views from MyViewHolder
+     */
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView sys,dis,bp,time,date;
@@ -97,6 +116,10 @@ public class dataAdapter extends RecyclerView.Adapter<dataAdapter.MyViewHolder> 
             time=itemView.findViewById(R.id.time);
             update=itemView.findViewById(R.id.update);
             delete=itemView.findViewById(R.id.delete);
+
+            /**
+             * this method is used to update data in database
+             */
 
             update.setOnClickListener(new View.OnClickListener() {
                 @Override

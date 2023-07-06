@@ -143,6 +143,10 @@ public class MainActivity extends AppCompatActivity {
         });
 */
 
+        /**
+         * This method redirect user to Add to add data in database
+         */
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,6 +156,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * this class redirect to the recyclerview to show previously added data from firebase
+         */
         stat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

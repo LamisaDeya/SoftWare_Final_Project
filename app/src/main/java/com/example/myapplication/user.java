@@ -3,6 +3,10 @@ package com.example.myapplication;
 public class user {
     String name,email;
 
+    /**
+     * This is useless
+     * @return
+     */
     public String getName() {
         return name;
     }
