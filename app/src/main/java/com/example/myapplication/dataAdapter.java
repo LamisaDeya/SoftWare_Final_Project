@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+
 public class dataAdapter extends RecyclerView.Adapter<dataAdapter.MyViewHolder> {
 
     String sys;
