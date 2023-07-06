@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Update extends AppCompatActivity {
+public class Update2 extends AppCompatActivity {
 
     EditText bp,sys,dis;
     TextView textView;
@@ -27,8 +27,7 @@ public class Update extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update2);
-
+        setContentView(R.layout.activity_update3);
         bp=findViewById(R.id.bp);
         sys=findViewById(R.id.sys);
         dis=findViewById(R.id.dis);
@@ -81,9 +80,9 @@ public class Update extends AppCompatActivity {
 
 
                 reference.child(ss+xx).setValue(h);
-                Toast.makeText(Update.this, "Data Uploaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Update2.this, "Data Updated", Toast.LENGTH_SHORT).show();
 
-                Intent intent=new Intent(Update.this,stat.class);
+                Intent intent=new Intent(Update2.this,stat.class);
                 //intent.putExtra("ss",ss+xx);
                 startActivity(intent);
                 finish();

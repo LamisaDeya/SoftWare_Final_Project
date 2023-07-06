@@ -77,7 +77,7 @@ public class dataAdapter extends RecyclerView.Adapter<dataAdapter.MyViewHolder> 
                     });
                 }
             });
-            
+
     }
 
     @Override
@@ -101,7 +101,7 @@ public class dataAdapter extends RecyclerView.Adapter<dataAdapter.MyViewHolder> 
             update.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(context,Update.class);
+                    Intent intent=new Intent(context,Update2.class);
                     intent.putExtra("bp",b);
                     intent.putExtra("dis",dd);
                     intent.putExtra("sys",s);

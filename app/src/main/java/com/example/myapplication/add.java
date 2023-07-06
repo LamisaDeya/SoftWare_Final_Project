@@ -46,18 +46,6 @@ public class add extends AppCompatActivity {
         btn=findViewById(R.id.up);
         textView=findViewById(R.id.tm);
 
-<<<<<<< HEAD
-        if(getIntent().getStringExtra("SYS")!=null)
-        {
-            bp.setText(getIntent().getStringExtra("BP"));
-            sys.setText(getIntent().getStringExtra("SYS"));
-            dis.setText(getIntent().getStringExtra("DIS"));
-            //text.setText(getIntent().getStringExtra("DIS"));
-        }
-
-        Intent intent1=getIntent();
-        String email=intent1.getStringExtra("email");
-=======
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             mail = user.getEmail();
@@ -69,7 +57,6 @@ public class add extends AppCompatActivity {
         String email=mail.replace(".",",");
 
         DatabaseReference reference=FirebaseDatabase.getInstance().getReference(email);
->>>>>>> main
 
 
 
@@ -100,28 +87,7 @@ public class add extends AppCompatActivity {
                 h.setDate(dat);
 
                 String ss=dat.replace("/","");
-<<<<<<< HEAD
-
-
-                databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        databaseReference.child(ss).setValue(h);
-                        Toast.makeText(add.this, "Data Uploaded", Toast.LENGTH_SHORT).show();
-                        bp.setText("");
-                        dis.setText("");
-                        sys.setText("");
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-=======
                 String xx=tim.replace(":","");
->>>>>>> main
-
 
 
                 reference.child(ss+xx).setValue(h);
