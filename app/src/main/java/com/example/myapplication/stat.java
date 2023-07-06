@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +23,7 @@ public class stat extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<health>list;
     DatabaseReference databaseReference;
-    String mail;
+    String mail,email;
     dataAdapter adapter;
 
     @Override
@@ -36,12 +37,15 @@ public class stat extends AppCompatActivity {
             mail = user.getEmail();
             // Use the email address as needed
         }
+      /*  Intent intent1=getIntent();
+        String email=intent1.getStringExtra("email");*/
+        email=mail.replace(".",",");
 
-        String email=mail.replace(".",",");
         databaseReference= FirebaseDatabase.getInstance().getReference(email);
+
         list=new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter=new dataAdapter(this,list);
+        adapter=new dataAdapter(this,list,email);
         recyclerView.setAdapter(adapter);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

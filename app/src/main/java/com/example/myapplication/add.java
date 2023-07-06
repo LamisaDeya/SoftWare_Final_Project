@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,12 +30,11 @@ import java.util.Locale;
 public class add extends AppCompatActivity {
 
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
     EditText bp,sys,dis;
     TextView textView;
-    String tm;
+    String tm,mail;
     Button btn;
+    long cnt=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,7 @@ public class add extends AppCompatActivity {
         btn=findViewById(R.id.up);
         textView=findViewById(R.id.tm);
 
+<<<<<<< HEAD
         if(getIntent().getStringExtra("SYS")!=null)
         {
             bp.setText(getIntent().getStringExtra("BP"));
@@ -53,9 +57,20 @@ public class add extends AppCompatActivity {
 
         Intent intent1=getIntent();
         String email=intent1.getStringExtra("email");
+=======
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            mail = user.getEmail();
+            // Use the email address as needed
+        }
+       /* Intent intent1=getIntent();
+        String mail=intent1.getStringExtra("email");*/
 
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference(email);
+        String email=mail.replace(".",",");
+
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference(email);
+>>>>>>> main
+
 
 
         Date date= Calendar.getInstance().getTime();
@@ -85,6 +100,7 @@ public class add extends AppCompatActivity {
                 h.setDate(dat);
 
                 String ss=dat.replace("/","");
+<<<<<<< HEAD
 
 
                 databaseReference.addValueEventListener(new ValueEventListener() {
@@ -102,10 +118,17 @@ public class add extends AppCompatActivity {
 
                     }
                 });
+=======
+                String xx=tim.replace(":","");
+>>>>>>> main
 
 
 
-               Intent intent=new Intent(add.this,MainActivity.class);
+                reference.child(ss+xx).setValue(h);
+                Toast.makeText(add.this, "Data Uploaded", Toast.LENGTH_SHORT).show();
+
+                Intent intent=new Intent(add.this,MainActivity.class);
+                intent.putExtra("ss",ss+xx);
                 startActivity(intent);
                 finish();
             }
